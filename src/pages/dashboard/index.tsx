@@ -1,9 +1,11 @@
+import { Container } from "../../components/container";
+import { DashboardHeader } from "../../components/painelHeader";
 import React from "react";
 
 export function Dashboard() {
     return (
-        <div>
-            <h1>Página dashboard</h1>
-        </div>
+        <Container>
+            <DashboardHeader />
+        </Container>
     )
 }
