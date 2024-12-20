@@ -1,7 +1,68 @@
-import React from "react";
-import { Container } from "../../components/container"
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom"
+import { Container } from "../../components/container";
+
+import { db } from "../../services/firebaseConnection";
+import { 
+    doc,
+    getDoc,
+    collection,
+    query,
+    orderBy,
+    getDocs
+} from "firebase/firestore";
+
+type ImagesProps = {
+    name: string;
+    uid: string;
+    url: string;
+}
+
+interface CarroProps {
+    id: string;
+    name: string;
+    price: string;
+    year: string;
+    km: string;
+    city: string;
+    description: string;
+    images: ImagesProps[];
+}
 
 export function Home() {
+    const [cars, setCars] = useState<CarroProps[]>([]);
+    const [isLoading, setIsLoading] = useState(true);
+
+    useEffect(() => {
+        function getCars() {
+            const carsRef = collection(db, 'cars');
+            const queryRef = query(carsRef, orderBy("created", "asc"));
+
+            getDocs(queryRef)
+            .then((snapshot) => {
+                let lista = [] as CarroProps[];
+
+                snapshot.forEach((doc) => {
+                    lista.push({
+                        id: doc.id,
+                        name: doc.data().name,
+                        price: doc.data().price,
+                        year: doc.data().year,
+                        km: doc.data().km,
+                        city: doc.data().city,
+                        description: doc.data().description,
+                        images: doc.data().images,
+                    })
+                })
+
+                setCars(lista);
+                setIsLoading(false);
+            })
+        }
+
+        getCars();
+    }, [])
+
     return (
         <Container>
             <section className="bg-white p-4 rounded-lg w-full max-w-3xl mx-auto flex justify-center items-center gap-2">
@@ -19,71 +80,34 @@ export function Home() {
             </h1>
 
             <main className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-                <section className="w-full bg-white rounded-lg">
-                    <img
-                        className="w-full rounded-lg mb-2 max-h-72 hover:scale-105 transition-all"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXjhP7f3TQEkBF08_P0PFNFRNSm7U9hKFWIw&s"
-                        alt="Foto da Hilux"
-                    />
-                    <p className="font-bold mt-1 mb-2 px-2">Hilux Sw-10</p>
 
-                    <div className="flex flex-col px-2">
-                        <span className="text-zinc-700 mb-6">Ano 2020 | 23.000 km</span>
-                        <strong className="text-black font-bold text-xl">R$ 190.000</strong>
-                    </div>
+                {isLoading && (
+                    <span>Carregando os carros disponíveis...</span>
+                )}
+                
+                {!isLoading && cars.map((item) => (
+                    <Link to={`/car/${item.id}`}>
+                        <section className="w-full bg-white rounded-lg">
+                            <img
+                                className="w-full rounded-lg mb-2 max-h-72 hover:scale-105 transition-all"
+                                src={item.images[0].url}
+                                alt={item.name}
+                            />
+                            <p className="font-bold mt-1 mb-2 px-2">{item.name}</p>
+                            <div className="flex flex-col px-2">
+                                <span className="text-zinc-700 mb-6">Ano {item.year} | {item.km} km</span>
+                                <strong className="text-black font-bold text-xl">R$ {item.price}</strong>
+                            </div>
+                            <div className="w-full h-px  bg-slate-200 my-2"></div>
+                            <div className="px-2 pb-2">
+                                <span className="text-zinc-700">
+                                    {item.city}
+                                </span>
+                            </div>
+                        </section>
+                    </Link>
+                ))}
 
-                    <div className="w-full h-px  bg-slate-200 my-2"></div>
-
-                    <div className="px-2 pb-2">
-                        <span className="text-zinc-700">
-                            Campo Grande - MS
-                        </span>
-                    </div>
-                </section>
-
-                <section className="w-full bg-white rounded-lg">
-                    <img
-                        className="w-full rounded-lg mb-2 max-h-72 hover:scale-105 transition-all"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXjhP7f3TQEkBF08_P0PFNFRNSm7U9hKFWIw&s"
-                        alt="Foto da Hilux"
-                    />
-                    <p className="font-bold mt-1 mb-2 px-2">Hilux Sw-10</p>
-
-                    <div className="flex flex-col px-2">
-                        <span className="text-zinc-700 mb-6">Ano 2020 | 23.000 km</span>
-                        <strong className="text-black font-bold text-xl">R$ 190.000</strong>
-                    </div>
-
-                    <div className="w-full h-px  bg-slate-200 my-2"></div>
-
-                    <div className="px-2 pb-2">
-                        <span className="text-zinc-700">
-                            Campo Grande - MS
-                        </span>
-                    </div>
-                </section>
-
-                <section className="w-full bg-white rounded-lg">
-                    <img
-                        className="w-full rounded-lg mb-2 max-h-72 hover:scale-105 transition-all"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQXjhP7f3TQEkBF08_P0PFNFRNSm7U9hKFWIw&s"
-                        alt="Foto da Hilux"
-                    />
-                    <p className="font-bold mt-1 mb-2 px-2">Hilux Sw-10</p>
-
-                    <div className="flex flex-col px-2">
-                        <span className="text-zinc-700 mb-6">Ano 2020 | 23.000 km</span>
-                        <strong className="text-black font-bold text-xl">R$ 190.000</strong>
-                    </div>
-
-                    <div className="w-full h-px  bg-slate-200 my-2"></div>
-
-                    <div className="px-2 pb-2">
-                        <span className="text-zinc-700">
-                            Campo Grande - MS
-                        </span>
-                    </div>
-                </section>
             </main>
         </Container>
     )
