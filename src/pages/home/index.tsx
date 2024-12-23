@@ -4,8 +4,6 @@ import { Container } from "../../components/container";
 
 import { db } from "../../services/firebaseConnection";
 import { 
-    doc,
-    getDoc,
     collection,
     query,
     orderBy,
@@ -36,14 +34,14 @@ export function Home() {
     useEffect(() => {
         function getCars() {
             const carsRef = collection(db, 'cars');
-            const queryRef = query(carsRef, orderBy("created", "asc"));
+            const queryRef = query(carsRef, orderBy("created", "desc"));
 
             getDocs(queryRef)
             .then((snapshot) => {
-                let lista = [] as CarroProps[];
+                let list = [] as CarroProps[];
 
                 snapshot.forEach((doc) => {
-                    lista.push({
+                    list.push({
                         id: doc.id,
                         name: doc.data().name,
                         price: doc.data().price,
@@ -55,7 +53,7 @@ export function Home() {
                     })
                 })
 
-                setCars(lista);
+                setCars(list);
                 setIsLoading(false);
             })
         }
@@ -87,7 +85,7 @@ export function Home() {
                 
                 {!isLoading && cars.map((item) => (
                     <Link to={`/car/${item.id}`}>
-                        <section className="w-full bg-white rounded-lg">
+                        <section key={item.id} className="w-full bg-white rounded-lg">
                             <img
                                 className="w-full rounded-lg mb-2 max-h-72 hover:scale-105 transition-all"
                                 src={item.images[0].url}
