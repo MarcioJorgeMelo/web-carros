@@ -29,6 +29,7 @@ interface CarroProps {
 
 export function Home() {
     const [cars, setCars] = useState<CarroProps[]>([]);
+    const [loadImages, setLoadImages] = useState<string[]>([]);
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
@@ -61,6 +62,10 @@ export function Home() {
         getCars();
     }, [])
 
+    function handleImageLoad(id: string) {
+        setLoadImages((prevImageLoaded) => [...prevImageLoaded, id]);
+    }
+
     return (
         <Container>
             <section className="bg-white p-4 rounded-lg w-full max-w-3xl mx-auto flex justify-center items-center gap-2">
@@ -86,10 +91,16 @@ export function Home() {
                 {!isLoading && cars.map((item) => (
                     <Link to={`/car/${item.id}`}>
                         <section key={item.id} className="w-full bg-white rounded-lg">
+                            <div
+                                className="w-full h-72 rounded-lg bg-slate-200"
+                                style={{ display: loadImages.includes(item.id) ? "none" : "block" }}
+                            ></div>
                             <img
                                 className="w-full rounded-lg mb-2 max-h-72 hover:scale-105 transition-all"
                                 src={item.images[0].url}
                                 alt={item.name}
+                                onLoad={ () => handleImageLoad(item.id) }
+                                style={{ display: loadImages.includes(item.id) ? "block" : "none" }}
                             />
                             <p className="font-bold mt-1 mb-2 px-2">{item.name}</p>
                             <div className="flex flex-col px-2">
