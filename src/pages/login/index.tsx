@@ -12,6 +12,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { auth } from '../../services/firebaseConnection';
 import { signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
+import toast from "react-hot-toast";
+
 const schema = z.object({
   email: z.string().email("Insira um email válido").nonempty("O campo email é obrigatório"),
   password: z.string().nonempty("O campo senha é obrigatório")
@@ -36,11 +38,11 @@ export function Login() {
   function onSubmit(data: FormData){
     signInWithEmailAndPassword(auth, data.email, data.password)
     .then(() => {
-      console.log("Logado com sucesso!");
+      toast.success("Logado com sucesso!")
       navigate("/dashboard", { replace: true });
     })
     .catch((error) => {
-      console.log(error);
+      toast.error("Erro ao logar");
     })
   }
 
