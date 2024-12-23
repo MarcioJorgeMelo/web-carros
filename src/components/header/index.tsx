@@ -6,6 +6,8 @@ import { FiUser, FiLogIn } from "react-icons/fi";
 import { useContext } from "react";
 import { AuthContext } from "../../context/AuthContent";
 
+import toast from "react-hot-toast";
+
 export function Header() {
     const { signed, loadingAuth } = useContext(AuthContext);
 

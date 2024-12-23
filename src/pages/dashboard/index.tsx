@@ -19,6 +19,8 @@ import { ref, deleteObject } from "firebase/storage";
 import { ImagesProps } from "../home";
 import { Link } from "react-router-dom";
 
+import toast from "react-hot-toast";
+
 interface CarroProps {
     id: string;
     name: string;
@@ -90,7 +92,7 @@ export function Dashboard() {
             try {
                 await deleteObject(imageRef);
                 setCars(cars.filter(carFilter => carFilter.id !== itemCar.id));
-                alert("Carro removido!");
+                toast.error("Carro deletado!");
             } catch (error) {
                 console.log(error);
             }

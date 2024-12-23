@@ -20,7 +20,9 @@ import {
     getDownloadURL,
     deleteObject
  } from "firebase/storage";
- import { addDoc, collection } from 'firebase/firestore'
+ import { addDoc, collection } from 'firebase/firestore';
+
+import toast from "react-hot-toast";
 
 const schema = z.object({
     name: z.string().nonempty("O campo nome é obrigatório"),
@@ -85,11 +87,11 @@ export function New() {
         .then(() => {
             reset();
             setCarImages([]);
+            toast.success("Carro cadastrado com sucesso!");
             navigate("/dashboard");
-            alert("Cadastrado com sucesso!");
         })
         .catch((error) => {
-            console.log(error);
+            toast.error("Erro ao cadastrar carro");
         })
 
     }
@@ -102,6 +104,7 @@ export function New() {
         try {
             await deleteObject(imageRef);
             setCarImages(carImages.filter((car) => car.url !== item.url));
+            toast.error("Imagem deletada!");
         } catch (error) {
             console.log("Erro ao deletar: ", error);
         }
@@ -141,6 +144,7 @@ export function New() {
                 }
 
                 setCarImages((images) => [...images, imageItem]);
+                toast.error("Imagem registrada!");
             })
         })
 
