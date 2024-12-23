@@ -19,7 +19,7 @@ import { ref, deleteObject } from "firebase/storage";
 import { ImagesProps } from "../home";
 import { Link } from "react-router-dom";
 
-export interface CarroProps {
+interface CarroProps {
     id: string;
     name: string;
     price: string;
