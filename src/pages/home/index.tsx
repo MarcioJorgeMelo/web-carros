@@ -10,7 +10,7 @@ import {
     getDocs
 } from "firebase/firestore";
 
-type ImagesProps = {
+export type ImagesProps = {
     name: string;
     uid: string;
     url: string;

@@ -3,6 +3,7 @@ import { Container } from "../../../components/container";
 import { DashboardHeader } from "../../../components/painelHeader";
 
 import { FiUpload, FiTrash } from "react-icons/fi";
+import { useNavigate } from "react-router-dom";
 import { v4 as uuidV4 } from "uuid";
 import { useForm } from "react-hook-form";
 import { Input } from "../../../components/input";
@@ -51,6 +52,7 @@ export function New() {
     })
 
     const [carImages, setCarImages] = useState<ImageItemProps[]>([]);
+    const navigate = useNavigate();
 
     function onSubmit(data: FormData) {
         if(carImages.length === 0) {
@@ -83,10 +85,11 @@ export function New() {
         .then(() => {
             reset();
             setCarImages([]);
+            navigate("/dashboard");
             alert("Cadastrado com sucesso!");
         })
         .catch((error) => {
-            
+            console.log(error);
         })
 
     }
