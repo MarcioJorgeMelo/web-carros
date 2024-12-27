@@ -15,7 +15,7 @@ O **Web Carros** é uma plataforma para compra e venda de veículos, que conecta
    - [Iphone 14 pro max](#iphone-14-pro-max)
    - [Ipad pro](#ipad-pro)
    - [Mobile](#mobile)
-   - [Desk](#desk)
+   - [Desk](#desktop)
 6. [Requisitos para Rodar o Projeto Localmente](#requisitos-para-rodar-o-projeto-localmente)
 7. [Rodar o Projeto Localmente](#rodar-o-projeto-localmente)
 8. [Autores](#autores)
@@ -126,3 +126,89 @@ O projeto é organizado em vários arquivos para melhor organização do código
 - `shared/`: Onde encontra-se funcionalidades utilizadas em toda a aplicação.
 - `App.jsx`: A pasta contém toda a estrutura de rotas do sistema.
 - `index.css`: Onde encontra-se a estilização global da aplicação.
+
+## Screenshots
+
+### Iphone 14 pro max
+
+![App mobile Screenshot](public/readme-images/Screenshot_3.png)
+
+### Ipad pro
+
+![App ipad Screenshot](public/readme-images/Screenshot_4.png)
+
+### Mobile
+
+![App mobile Screenshot](public/readme-images/Screenshot_5.png)
+
+### Desktop
+
+![App desktop Screenshot](public/readme-images/web_carros1.png)
+![App desktop Screenshot](public/readme-images/web_carros2.png)
+![App desktop Screenshot](public/readme-images/web_carros3.png)
+![App desktop Screenshot](public/readme-images/web_carros4.png)
+![App desktop Screenshot](public/readme-images/web_carros5.png)
+![App desktop Screenshot](public/readme-images/web_carros6.png)
+
+## Requisitos para Rodar o Projeto Localmente
+
+### Node.js e npm:
+
+- Verifique se você tem o Node.js instalado. Caso contrário, faça o download e instale a versão mais recente do Node.js.
+- O npm (Node Package Manager) é instalado automaticamente com o Node.js.
+
+### Git:
+
+- Certifique-se de ter o Git instalado em sua máquina. Se não tiver, você pode baixá-lo aqui.
+
+### Editor de Texto ou IDE:
+
+- Escolha um editor de texto ou uma IDE (Ambiente de Desenvolvimento Integrado) para trabalhar no código. Alguns exemplos populares incluem o Visual Studio Code, Sublime Text e Atom.
+
+### Navegador Web:
+
+- Você precisará de um navegador web para visualizar o aplicativo localmente. Recomendamos o uso do Google Chrome, Mozilla Firefox ou Microsoft Edge.
+
+### Conta no Firebase Console no plano Blaze:
+
+- O projeto Weatherio consome dados do storage, função paga por utilização, dos serviços do Firebase. Crie uma conta gratuita em OpenWeatherMap, cadastre seu cartão e obtenha uma chave de API (API key).
+
+## Rodar o Projeto Localmente
+
+**Clone o projeto**
+
+```bash
+  git clone https://github.com/MarcioJorgeMelo/web-carros.git
+```
+
+**Vá para a pasta do projeto**
+
+```bash
+  cd webcarros
+```
+
+**Abra o projeto no VSCode**
+
+```bash
+  code .
+```
+
+**Instale as dependências**
+
+```bash
+  npm install # Instala as dependências (se ainda não tiver feito)
+```
+
+**Abra com o React Server**
+
+```bash
+  npm run dev # Inicia o servidor React
+```
+
+## Autores
+
+- [@MarcioJorgeMelo](https://github.com/MarcioJorgeMelo)
+
+## Licença
+
+- [MIT](https://choosealicense.com/licenses/mit/)
