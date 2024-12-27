@@ -144,7 +144,7 @@ export function New() {
                 }
 
                 setCarImages((images) => [...images, imageItem]);
-                toast.error("Imagem registrada!");
+                toast.success("Imagem registrada!");
             })
         })
 
